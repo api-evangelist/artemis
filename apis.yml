@@ -1,106 +1,31 @@
-name: Artemis API
-description: APIs for NASA's Artemis program - the next generation of lunar exploration missions
-url: https://api.nasa.gov/artemis
-image: https://www.nasa.gov/wp-content/uploads/2023/03/artemis-logo.png
+aid: artemis
+name: Artemis
+description: >-
+  NASA's Artemis program is the next generation of lunar exploration, aiming to
+  return humans to the Moon and establish a sustainable presence for future
+  missions to Mars. The program includes the Space Launch System (SLS) rocket,
+  Orion spacecraft, and the Lunar Gateway space station.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - NASA
+  - Space
+  - Moon
+  - Exploration
+  - Lunar
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/artemis/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2024-01-15'
-apis:
-- name: Artemis Mission Data API
-  description: Access data about Artemis missions including mission plans, schedules, and status updates
-  baseURL: https://api.nasa.gov/artemis/v1/missions
-  humanURL: https://www.nasa.gov/artemis
-  image: https://www.nasa.gov/wp-content/uploads/2023/03/artemis-mission-patch.png
-  version: v1
-  tags:
-  - space
-  - moon
-  - exploration
-  - artemis
-  - missions
-  properties:
-  - type: Documentation
-    url: https://api.nasa.gov/artemis/docs
-  - type: OpenAPI
-    url: https://api.nasa.gov/artemis/v1/openapi.json
-  - type: Authentication
-    url: https://api.nasa.gov/artemis/auth
-  contact:
-  - type: Support
-    url: https://api.nasa.gov/artemis/support
-  - type: Email
-    url: mailto:artemis-api@nasa.gov
-- name: Artemis Spacecraft Telemetry API
-  description: Real-time and historical telemetry data from Artemis spacecraft including Orion capsule and SLS rocket
-  baseURL: https://api.nasa.gov/artemis/v1/telemetry
-  humanURL: https://www.nasa.gov/artemis/spacecraft
-  version: v1
-  tags:
-  - telemetry
-  - spacecraft
-  - orion
-  - sls
-  - real-time
-  properties:
-  - type: Documentation
-    url: https://api.nasa.gov/artemis/docs/telemetry
-  - type: OpenAPI
-    url: https://api.nasa.gov/artemis/v1/telemetry/openapi.json
-  - type: WebSocket
-    url: wss://api.nasa.gov/artemis/v1/telemetry/stream
-  contact:
-  - type: Support
-    url: https://api.nasa.gov/artemis/support
-- name: Artemis Lunar Gateway API
-  description: Information about the Lunar Gateway space station including modules, experiments, and docking schedules
-  baseURL: https://api.nasa.gov/artemis/v1/gateway
-  humanURL: https://www.nasa.gov/gateway
-  version: v1
-  tags:
-  - gateway
-  - space-station
-  - lunar-orbit
-  - international
-  properties:
-  - type: Documentation
-    url: https://api.nasa.gov/artemis/docs/gateway
-  - type: OpenAPI
-    url: https://api.nasa.gov/artemis/v1/gateway/openapi.json
-  contact:
-  - type: Support
-    url: https://api.nasa.gov/artemis/support
-- name: Artemis Astronaut API
-  description: Information about Artemis astronauts, crew assignments, training schedules, and biographies
-  baseURL: https://api.nasa.gov/artemis/v1/astronauts
-  humanURL: https://www.nasa.gov/artemis/astronauts
-  version: v1
-  tags:
-  - astronauts
-  - crew
-  - training
-  - personnel
-  properties:
-  - type: Documentation
-    url: https://api.nasa.gov/artemis/docs/astronauts
-  - type: OpenAPI
-    url: https://api.nasa.gov/artemis/v1/astronauts/openapi.json
-  contact:
-  - type: Support
-    url: https://api.nasa.gov/artemis/support
-maintainers:
-- name: NASA API Team
-  email: api@nasa.gov
-  url: https://api.nasa.gov
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis: []
 common:
-- type: Terms of Service
-  url: https://api.nasa.gov/terms
-- type: Privacy Policy
-  url: https://www.nasa.gov/privacy
-- type: API Key Registration
-  url: https://api.nasa.gov/register
-- type: Rate Limits
-  url: https://api.nasa.gov/rate-limits
-- type: Status Page
-  url: https://status.api.nasa.gov
-include:
-- name: NASA Open APIs
-  url: https://api.nasa.gov/apis.json
+  - type: Website
+    url: https://www.nasa.gov/artemis/
+  - type: Documentation
+    url: https://api.nasa.gov/
+  - type: GitHub Organization
+    url: https://github.com/nasa
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
