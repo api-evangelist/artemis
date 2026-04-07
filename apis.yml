@@ -8,11 +8,11 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - NASA
-  - Space
-  - Moon
   - Exploration
   - Lunar
+  - Moon
+  - NASA
+  - Space
 url: >-
   https://raw.githubusercontent.com/api-evangelist/artemis/refs/heads/main/apis.yml
 created: '2024-01-15'
