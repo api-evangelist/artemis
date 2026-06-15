@@ -1,0 +1,994 @@
+{
+  "item": [
+    {
+      "id": "c8cfd77a-1d44-4c59-ac89-9f13d8670b26",
+      "name": "APOD",
+      "description": {
+        "content": "Astronomy Picture of the Day",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c53c637e-589a-4ee5-b1b6-4e962e99af11",
+          "name": "Astronomy Picture of the Day",
+          "request": {
+            "name": "Astronomy Picture of the Day",
+            "description": {},
+            "url": {
+              "path": [
+                "planetary",
+                "apod"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "DEMO_KEY",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "YYYY-MM-DD. Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "thumbs",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hd",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11edc1b9-fe9c-4781-83bb-8e3832a50a6f",
+              "name": "APOD entry or array of entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "planetary",
+                    "apod"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "DEMO_KEY"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "thumbs",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hd",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2001-06-21\",\n  \"title\": \"string\",\n  \"explanation\": \"string\",\n  \"url\": \"http://qzRnautQvttNDZVOvqQxTIkUs.jhpoavvmC0Yl\",\n  \"hdurl\": \"http://ZVTpgRahCrFgYpCMgYGHQTas.zdeqvH.oZMNl6QIobfYifFlEVSuEH,IRzphzPh-Hyskba+L\",\n  \"media_type\": \"image\",\n  \"service_version\": \"string\",\n  \"copyright\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a60bed9a-63a2-4c1a-9f7a-964c13d4ec77",
+      "name": "NeoWs",
+      "description": {
+        "content": "Near Earth Object Web Service",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c27b042-1423-4e55-b6d9-c81540ac28b9",
+          "name": "Near Earth Objects within a date range",
+          "request": {
+            "name": "Near Earth Objects within a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "neo",
+                "rest",
+                "v1",
+                "feed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "805f8b41-362a-40fc-bd15-3c7f2bb500a0",
+              "name": "NEO feed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "neo",
+                    "rest",
+                    "v1",
+                    "feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d073ba5-91ef-4a85-8058-c4b6a1a747e2",
+          "name": "Lookup a single asteroid by SPK-ID",
+          "request": {
+            "name": "Lookup a single asteroid by SPK-ID",
+            "description": {},
+            "url": {
+              "path": [
+                "neo",
+                "rest",
+                "v1",
+                "neo",
+                ":asteroid_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asteroid_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f41535d-763b-416e-8fb8-9e5dbe58af5c",
+              "name": "Asteroid record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "neo",
+                    "rest",
+                    "v1",
+                    "neo",
+                    ":asteroid_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asteroid_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d92e2b3d-a8fa-4594-a194-5d281d8d9412",
+          "name": "Browse the overall NEO dataset",
+          "request": {
+            "name": "Browse the overall NEO dataset",
+            "description": {},
+            "url": {
+              "path": [
+                "neo",
+                "rest",
+                "v1",
+                "neo",
+                "browse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3f9b91e-eb79-481d-b00f-f89d1d4caceb",
+              "name": "Paged NEO list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "neo",
+                    "rest",
+                    "v1",
+                    "neo",
+                    "browse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e756baad-e78f-4968-8cce-a94f8e12efea",
+      "name": "DONKI",
+      "description": {
+        "content": "Space Weather Database Of Notifications, Knowledge, Information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "727012cc-ab5b-434d-933d-5a1d8d631b76",
+          "name": "Space weather notifications",
+          "request": {
+            "name": "Space weather notifications",
+            "description": {},
+            "url": {
+              "path": [
+                "DONKI",
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7814a943-5ae0-4e64-8d18-a28a78b8abca",
+              "name": "DONKI notifications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DONKI",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "995d4669-9d77-4557-b808-b8666817dcaf",
+      "name": "EPIC",
+      "description": {
+        "content": "Earth Polychromatic Imaging Camera",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d3db1c0-012b-46a1-b79f-beecce2085f9",
+          "name": "Most recent EPIC natural color image metadata",
+          "request": {
+            "name": "Most recent EPIC natural color image metadata",
+            "description": {},
+            "url": {
+              "path": [
+                "EPIC",
+                "api",
+                "natural"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cc93b3e-b63e-42c3-9298-cc91d66464be",
+              "name": "List of EPIC image metadata records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EPIC",
+                    "api",
+                    "natural"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77917fd7-cef7-46a2-a370-3999dacca933",
+          "name": "EPIC natural color image metadata for a date",
+          "request": {
+            "name": "EPIC natural color image metadata for a date",
+            "description": {},
+            "url": {
+              "path": [
+                "EPIC",
+                "api",
+                "natural",
+                "date",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb8602a3-742c-49d8-8819-a257edbb36c9",
+              "name": "EPIC image metadata for the day",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EPIC",
+                    "api",
+                    "natural",
+                    "date",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8214b1be-b1aa-4716-af6b-3b119e25d569",
+      "name": "Images",
+      "description": {
+        "content": "NASA Image and Video Library",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3cff388f-4622-46d7-8d7e-ed7dadb73752",
+          "name": "Search the NASA Image and Video Library",
+          "request": {
+            "name": "Search the NASA Image and Video Library",
+            "description": {},
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{search-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "media_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "year_start",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "year_end",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3618a91-7c55-461f-b837-6197b57871d8",
+              "name": "Library search results (collection envelope)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{search-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "year_start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "year_end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nasa.gov",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://images-api.nasa.gov",
+      "key": "search-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d338cfa9-2a32-460f-ac72-341ee13e4e86",
+    "name": "NASA Open APIs (Artemis-relevant subset)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "api.nasa.gov is NASA's umbrella developer portal exposing a number of\nlong-standing public REST APIs. This spec covers the most widely used,\nstable endpoints relevant to Artemis-era lunar and space-weather workflows:\nAPOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),\nDONKI space weather notifications, and EPIC Earth imagery.\n\nAuthentication is a single api_key query parameter. The shared\nDEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;\nsign up at https://api.nasa.gov/ for a higher-volume personal key.\n\nThis is a best-effort spec derived from public api.nasa.gov documentation.\n\n\nContact Support:\n Name: NASA Open APIs",
+      "type": "text/plain"
+    }
+  }
+}

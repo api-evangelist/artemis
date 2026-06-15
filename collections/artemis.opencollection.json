@@ -1,0 +1,303 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NASA Open APIs (Artemis-relevant subset)",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "APOD",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Astronomy Picture of the Day",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/planetary/apod",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "YYYY-MM-DD. Defaults to today."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "thumbs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hd",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Astronomy Picture of the Day"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "NeoWs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Near Earth Objects within a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/neo/rest/v1/feed",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Near Earth Objects within a date range"
+        },
+        {
+          "info": {
+            "name": "Lookup a single asteroid by SPK-ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/neo/rest/v1/neo/:asteroid_id",
+            "params": [
+              {
+                "name": "asteroid_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lookup a single asteroid by SPK-ID"
+        },
+        {
+          "info": {
+            "name": "Browse the overall NEO dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/neo/rest/v1/neo/browse",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Browse the overall NEO dataset"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DONKI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Space weather notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/DONKI/notifications",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Space weather notifications"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "EPIC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Most recent EPIC natural color image metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/EPIC/api/natural",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Most recent EPIC natural color image metadata"
+        },
+        {
+          "info": {
+            "name": "EPIC natural color image metadata for a date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/EPIC/api/natural/date/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "EPIC natural color image metadata for a date"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search the NASA Image and Video Library",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nasa.gov/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "media_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "year_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "year_end",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search the NASA Image and Video Library"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
