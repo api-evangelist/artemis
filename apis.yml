@@ -74,7 +74,7 @@ common:
   - type: GitHubOrganization
     url: https://github.com/nasa
     title: NASA GitHub Organization
-  - type: SignUp
+  - type: Signup
     url: https://api.nasa.gov/#signUp
     title: API Key Signup
   - type: PrivacyPolicy
