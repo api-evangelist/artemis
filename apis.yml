@@ -63,6 +63,12 @@ apis:
       - type: Documentation
         url: https://technology.nasa.gov/
 common:
+  - type: DomainSecurity
+    url: security/artemis-domain-security.yml
+  - type: Authentication
+    url: authentication/artemis-authentication.yml
+  - url: https://www.nasa.gov/feed/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/artemisag
   - type: Portal

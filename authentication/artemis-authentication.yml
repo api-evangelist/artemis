@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/artemis-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: NasaApiKey
+  type: apiKey
+  in: query
+  parameter: api_key
+  description: NASA api_key query parameter. Use DEMO_KEY for low-volume testing.
+  sources:
+  - openapi/artemis-openapi.yml
