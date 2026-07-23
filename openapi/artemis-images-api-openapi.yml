@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: NASA Open APIs (Artemis-relevant subset) APOD Images API
+  version: 1.0.0
+  summary: Best-effort OpenAPI for selected NASA Open APIs at api.nasa.gov used in Artemis-related workflows.
+  description: 'api.nasa.gov is NASA''s umbrella developer portal exposing a number of
+
+    long-standing public REST APIs. This spec covers the most widely used,
+
+    stable endpoints relevant to Artemis-era lunar and space-weather workflows:
+
+    APOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),
+
+    DONKI space weather notifications, and EPIC Earth imagery.
+
+
+    Authentication is a single api_key query parameter. The shared
+
+    DEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;
+
+    sign up at https://api.nasa.gov/ for a higher-volume personal key.
+
+
+    This is a best-effort spec derived from public api.nasa.gov documentation.
+
+    '
+  contact:
+    name: NASA Open APIs
+    url: https://api.nasa.gov/
+servers:
+- url: https://api.nasa.gov
+  description: api.nasa.gov gateway
+- url: https://images-api.nasa.gov
+  description: NASA Image and Video Library
+security:
+- NasaApiKey: []
+tags:
+- name: Images
+  description: NASA Image and Video Library
+paths:
+  /search:
+    servers:
+    - url: https://images-api.nasa.gov
+    get:
+      tags:
+      - Images
+      summary: Search the NASA Image and Video Library
+      operationId: searchImages
+      parameters:
+      - in: query
+        name: q
+        schema:
+          type: string
+      - in: query
+        name: media_type
+        schema:
+          type: string
+          enum:
+          - image
+          - video
+          - audio
+      - in: query
+        name: year_start
+        schema:
+          type: string
+      - in: query
+        name: year_end
+        schema:
+          type: string
+      - in: query
+        name: page
+        schema:
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Library search results (collection envelope)
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    NasaApiKey:
+      type: apiKey
+      in: query
+      name: api_key
+      description: NASA api_key query parameter. Use DEMO_KEY for low-volume testing.

@@ -1,0 +1,92 @@
+openapi: 3.1.0
+info:
+  title: NASA Open APIs (Artemis-relevant subset) APOD DONKI API
+  version: 1.0.0
+  summary: Best-effort OpenAPI for selected NASA Open APIs at api.nasa.gov used in Artemis-related workflows.
+  description: 'api.nasa.gov is NASA''s umbrella developer portal exposing a number of
+
+    long-standing public REST APIs. This spec covers the most widely used,
+
+    stable endpoints relevant to Artemis-era lunar and space-weather workflows:
+
+    APOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),
+
+    DONKI space weather notifications, and EPIC Earth imagery.
+
+
+    Authentication is a single api_key query parameter. The shared
+
+    DEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;
+
+    sign up at https://api.nasa.gov/ for a higher-volume personal key.
+
+
+    This is a best-effort spec derived from public api.nasa.gov documentation.
+
+    '
+  contact:
+    name: NASA Open APIs
+    url: https://api.nasa.gov/
+servers:
+- url: https://api.nasa.gov
+  description: api.nasa.gov gateway
+- url: https://images-api.nasa.gov
+  description: NASA Image and Video Library
+security:
+- NasaApiKey: []
+tags:
+- name: DONKI
+  description: Space Weather Database Of Notifications, Knowledge, Information
+paths:
+  /DONKI/notifications:
+    get:
+      tags:
+      - DONKI
+      summary: Space weather notifications
+      operationId: getDonkiNotifications
+      parameters:
+      - in: query
+        name: api_key
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: startDate
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: endDate
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - all
+          - FLR
+          - SEP
+          - CME
+          - IPS
+          - MPC
+          - GST
+          - RBE
+          - report
+      responses:
+        '200':
+          description: DONKI notifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  securitySchemes:
+    NasaApiKey:
+      type: apiKey
+      in: query
+      name: api_key
+      description: NASA api_key query parameter. Use DEMO_KEY for low-volume testing.
