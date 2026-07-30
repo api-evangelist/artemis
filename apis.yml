@@ -10,7 +10,20 @@ description: >-
   data through api.nasa.gov. The program operates under NASA's Science Mission
   Directorate and Exploration Systems Development Mission Directorate.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/artemis.png
 tags:
   - Exploration
   - Lunar
@@ -24,44 +37,92 @@ created: '2024-01-15'
 modified: '2026-04-19'
 specificationVersion: '0.19'
 apis:
-  - aid: artemis:nasa-open-api
-    name: NASA Open APIs
-    description: >-
-      NASA's Open API platform at api.nasa.gov provides programmatic access to
-      NASA data including the Astronomy Picture of the Day (APOD), Near Earth
-      Object Web Service (NeoWs), NASA Image and Video Library, Mars Rover Photos,
-      EPIC Earth imagery, and space weather data relevant to Artemis mission
-      planning and operations.
-    humanURL: https://api.nasa.gov/
-    baseURL: https://api.nasa.gov
-    tags:
-      - Space
-      - NASA
-      - Science
-      - Imagery
-      - Open Data
-    properties:
-      - type: Documentation
-        url: https://api.nasa.gov/
-      - type: GettingStarted
-        url: https://api.nasa.gov/#getting-started
-  - aid: artemis:nasa-tech-transfer-api
-    name: NASA Technology Transfer API
-    description: >-
-      The NASA Technology Transfer API provides programmatic access to the
-      NASA patent portfolio, software catalog, and spinoff technologies developed
-      through the Artemis program and other NASA missions, enabling technology
-      licensing and commercialization queries.
-    humanURL: https://technology.nasa.gov/
-    baseURL: https://technology.nasa.gov
-    tags:
-      - Technology
-      - Patents
-      - Software
-      - Licensing
-    properties:
-      - type: Documentation
-        url: https://technology.nasa.gov/
+- aid: artemis:nasa-open-api
+  name: NASA Open APIs
+  description: >-
+    NASA's Open API platform at api.nasa.gov provides programmatic access to NASA data including the Astronomy
+    Picture of the Day (APOD), Near Earth Object Web Service (NeoWs), NASA Image and Video Library, Mars
+    Rover Photos, EPIC Earth imagery, and space weather data relevant to Artemis mission planning and
+    operations.
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - Space
+  - NASA
+  - Science
+  - Imagery
+  - Open Data
+  properties:
+  - type: Documentation
+    url: https://api.nasa.gov/
+  - type: GettingStarted
+    url: https://api.nasa.gov/#getting-started
+- aid: artemis:nasa-tech-transfer-api
+  name: NASA Technology Transfer API
+  description: >-
+    The NASA Technology Transfer API provides programmatic access to the NASA patent portfolio, software
+    catalog, and spinoff technologies developed through the Artemis program and other NASA missions, enabling
+    technology licensing and commercialization queries.
+  humanURL: https://technology.nasa.gov/
+  baseURL: https://technology.nasa.gov
+  tags:
+  - Technology
+  - Patents
+  - Software
+  - Licensing
+  properties:
+  - type: Documentation
+    url: https://technology.nasa.gov/
+- aid: artemis:artemis-apod-api
+  name: Artemis APOD API
+  description: Astronomy Picture of the Day
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - APOD
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-apod-api-openapi.yml
+- aid: artemis:artemis-donki-api
+  name: Artemis DONKI API
+  description: Space Weather Database Of Notifications, Knowledge, Information
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - DONKI
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-donki-api-openapi.yml
+- aid: artemis:artemis-epic-api
+  name: Artemis EPIC API
+  description: Earth Polychromatic Imaging Camera
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - EPIC
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-epic-api-openapi.yml
+- aid: artemis:artemis-images-api
+  name: Artemis Images API
+  description: NASA Image and Video Library
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-images-api-openapi.yml
+- aid: artemis:artemis-neows-api
+  name: Artemis NeoWs API
+  description: Near Earth Object Web Service
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - NeoWs
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-neows-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/artemis-agentic-access.yml
