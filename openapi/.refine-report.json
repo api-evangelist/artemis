@@ -1,0 +1,22 @@
+{
+  "provider": "artemis",
+  "sources": [
+    "artemis-apod-api-openapi.yml",
+    "artemis-donki-api-openapi.yml",
+    "artemis-epic-api-openapi.yml",
+    "artemis-images-api-openapi.yml",
+    "artemis-neows-api-openapi.yml"
+  ],
+  "outputs": [
+    "artemis-apod-api-openapi.yml",
+    "artemis-donki-api-openapi.yml",
+    "artemis-epic-api-openapi.yml",
+    "artemis-images-api-openapi.yml",
+    "artemis-neows-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
