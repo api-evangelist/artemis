@@ -35,7 +35,7 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/artemis/refs/heads/main/apis.yml
 created: '2024-01-15'
 modified: '2026-04-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: artemis:nasa-open-api
   name: NASA Open APIs
