@@ -1,0 +1,189 @@
+{
+  "item": [
+    {
+      "id": "53ee162c-1014-49f2-89b0-6694e410e903",
+      "name": "APOD",
+      "description": {
+        "content": "Astronomy Picture of the Day",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8aa30991-afd2-48bc-9927-38e6e087de08",
+          "name": "Astronomy Picture of the Day",
+          "request": {
+            "name": "Astronomy Picture of the Day",
+            "description": {},
+            "url": {
+              "path": [
+                "planetary",
+                "apod"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "DEMO_KEY",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "YYYY-MM-DD. Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "thumbs",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hd",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0fdf9d1-7420-4ac9-b418-e20aea989661",
+              "name": "APOD entry or array of entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "planetary",
+                    "apod"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "DEMO_KEY"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "thumbs",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hd",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"1993-11-19\",\n  \"title\": \"string\",\n  \"explanation\": \"string\",\n  \"url\": \"https://UXHXphlNBSQUWgMYFTVkDOGUyEUGwn.yhXgPYYor,fHGDJGIcsDEgtUIrb0mxYACbUiIeMQ\",\n  \"hdurl\": \"http://bVezqlmy.ybgiJNG6KMvrAJ9fbZecWNoVilDMjxLmiGbyHg,m4Zk3vjAhpJ\",\n  \"media_type\": \"image\",\n  \"service_version\": \"string\",\n  \"copyright\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nasa.gov",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d4ea403e-1163-4446-bb6d-2ca97be33839",
+    "name": "NASA Open APIs (Artemis-relevant subset) APOD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "api.nasa.gov is NASA's umbrella developer portal exposing a number of\nlong-standing public REST APIs. This spec covers the most widely used,\nstable endpoints relevant to Artemis-era lunar and space-weather workflows:\nAPOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),\nDONKI space weather notifications, and EPIC Earth imagery.\n\nAuthentication is a single api_key query parameter. The shared\nDEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;\nsign up at https://api.nasa.gov/ for a higher-volume personal key.\n\nThis is a best-effort spec derived from public api.nasa.gov documentation.\n\n\nContact Support:\n Name: NASA Open APIs",
+      "type": "text/plain"
+    }
+  }
+}

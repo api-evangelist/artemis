@@ -1,0 +1,181 @@
+{
+  "item": [
+    {
+      "id": "bddbc2e5-7f21-438d-b3b4-853dec56119d",
+      "name": "Images",
+      "description": {
+        "content": "NASA Image and Video Library",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a57bfada-fa81-4ede-8a1d-96471408993e",
+          "name": "Search the NASA Image and Video Library",
+          "request": {
+            "name": "Search the NASA Image and Video Library",
+            "description": {},
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{search-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "media_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "year_start",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "year_end",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9686f5e0-e0a3-4014-8d36-49402971c418",
+              "name": "Library search results (collection envelope)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{search-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "media_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "year_start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "year_end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nasa.gov",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://images-api.nasa.gov",
+      "key": "search-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c5975c43-af75-49d2-9bbe-aac831a926d9",
+    "name": "NASA Open APIs (Artemis-relevant subset) APOD Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "api.nasa.gov is NASA's umbrella developer portal exposing a number of\nlong-standing public REST APIs. This spec covers the most widely used,\nstable endpoints relevant to Artemis-era lunar and space-weather workflows:\nAPOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),\nDONKI space weather notifications, and EPIC Earth imagery.\n\nAuthentication is a single api_key query parameter. The shared\nDEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;\nsign up at https://api.nasa.gov/ for a higher-volume personal key.\n\nThis is a best-effort spec derived from public api.nasa.gov documentation.\n\n\nContact Support:\n Name: NASA Open APIs",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "item": [
+    {
+      "id": "2c9d77f0-4797-49ec-b5e9-b15fa80a56be",
+      "name": "DONKI",
+      "description": {
+        "content": "Space Weather Database Of Notifications, Knowledge, Information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0652e51b-f0a1-4a95-9780-641b6ec751af",
+          "name": "Space weather notifications",
+          "request": {
+            "name": "Space weather notifications",
+            "description": {},
+            "url": {
+              "path": [
+                "DONKI",
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e4008f9f-780f-4034-933a-f04d544b10d5",
+              "name": "DONKI notifications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DONKI",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nasa.gov",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fea0a17e-30a7-4f69-90a6-392e0f1b840a",
+    "name": "NASA Open APIs (Artemis-relevant subset) APOD DONKI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "api.nasa.gov is NASA's umbrella developer portal exposing a number of\nlong-standing public REST APIs. This spec covers the most widely used,\nstable endpoints relevant to Artemis-era lunar and space-weather workflows:\nAPOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),\nDONKI space weather notifications, and EPIC Earth imagery.\n\nAuthentication is a single api_key query parameter. The shared\nDEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;\nsign up at https://api.nasa.gov/ for a higher-volume personal key.\n\nThis is a best-effort spec derived from public api.nasa.gov documentation.\n\n\nContact Support:\n Name: NASA Open APIs",
+      "type": "text/plain"
+    }
+  }
+}
