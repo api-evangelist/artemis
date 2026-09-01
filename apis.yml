@@ -111,7 +111,7 @@ apis:
   humanURL: https://api.nasa.gov/
   baseURL: https://api.nasa.gov
   tags:
-  - EPIC
+  - Epic
   tags_raw:
   - EPIC
   properties:
