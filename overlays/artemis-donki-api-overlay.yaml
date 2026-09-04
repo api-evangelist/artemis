@@ -1,0 +1,68 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for NASA Open APIs (Artemis-relevant subset) APOD DONKI API
+  version: 1.0.0
+extends: ./../openapi/artemis-donki-api-openapi.yml
+x-provenance:
+  generated: '2026-09-04'
+  method: generated
+  source: https://api.nasa.gov/assets/html/authentication.html, https://api.data.gov/docs/developer-manual/,
+    live probes of api.nasa.gov 2026-09-04
+  note: Layers the runtime semantics NASA publishes in prose (and that this pipeline observed on live
+    responses) onto the contract, without mutating the OpenAPI. Every value here is evidenced in rate-limits/,
+    errors/ and conventions/. Nothing is invented.
+actions:
+- target: $.info
+  description: Attach the real documentation, licence and support surface NASA publishes.
+  update:
+    contact:
+      name: NASA Open APIs
+      url: https://api.nasa.gov/
+    license:
+      name: U.S. Government Work — no copyright in the United States
+      url: https://www.nasa.gov/nasa-brand-center/images-and-media/
+    x-api-evangelist:
+      record: https://apis.io/provider/artemis
+      gateway: api.data.gov API Umbrella
+      read_only: true
+- target: $
+  description: Attach external documentation and the observed rate-limit contract.
+  update:
+    externalDocs:
+      description: NASA Open APIs portal
+      url: https://api.nasa.gov/
+    x-rate-limits:
+      source: https://api.nasa.gov/assets/html/authentication.html
+      headers:
+      - X-RateLimit-Limit
+      - X-RateLimit-Remaining
+      reset_header: null
+      retry_after: false
+      tiers:
+      - name: DEMO_KEY
+        scope: ip-address
+        requests_per_hour: 30
+        requests_per_day: 50
+      - name: registered key
+        scope: api-key
+        requests_per_hour: 1000
+      exhaustion:
+        status: 429
+        code: OVER_RATE_LIMIT
+        recovery: rolling hour, no Retry-After
+    x-error-envelopes:
+      gateway: '{"error":{"code":"...","message":"..."}}'
+      service: '{"code":400,"msg":"...","service_version":"v1"}'
+      rfc9457: false
+      catalog: errors/artemis-problem-types.yml
+    x-request-id-header: X-Api-Umbrella-Request-Id
+- target: $.paths.*.get.responses
+  description: Add the gateway error responses every operation on this host can return. They are documented
+    by api.data.gov and were probed live on 2026-09-04, but no NASA contract declares them.
+  update:
+    '403':
+      description: API_KEY_MISSING, API_KEY_INVALID, API_KEY_DISABLED, API_KEY_UNAUTHORIZED or API_KEY_UNVERIFIED
+        — returned by the api.data.gov gateway, not the NASA service.
+    '429':
+      description: OVER_RATE_LIMIT — the key exceeded its hourly (or DEMO_KEY daily) allowance. Clears
+        on a rolling hour; no Retry-After header is sent.

@@ -1,16 +1,79 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/artemis-openapi.yml
+generated: '2026-09-04'
+method: searched
+source: https://api.nasa.gov/assets/html/authentication.html
+docs:
+- https://api.nasa.gov/assets/html/authentication.html
+- https://api.data.gov/docs/developer-manual/
+note: >-
+  Upgraded from derived to searched: NASA publishes a dedicated authentication page and it agrees
+  with the securitySchemes in the captured contracts. NASA's own Swagger for APOD
+  (openapi/artemis-apod-swagger.json, extracted from api.nasa.gov/assets/json/apis.json) declares
+  the same scheme, which makes this first-party rather than inferred.
 summary:
   types:
   - apiKey
   api_key_in:
   - query
+  oauth2: false
+  oidc: false
+  mtls: false
+  anonymous_access: partial
 schemes:
 - name: NasaApiKey
   type: apiKey
   in: query
   parameter: api_key
-  description: NASA api_key query parameter. Use DEMO_KEY for low-volume testing.
+  required: true
+  description: >-
+    A single api_key query parameter on every api.nasa.gov request. There is no header form
+    documented and none was accepted on probe. DEMO_KEY is a published shared value for exploration.
+  docs: https://api.nasa.gov/assets/html/authentication.html
   sources:
-  - openapi/artemis-openapi.yml
+  - https://api.nasa.gov/assets/html/authentication.html
+  - openapi/artemis-apod-swagger.json
+  - openapi/artemis-apod-api-openapi.yml
+  - openapi/artemis-donki-api-openapi.yml
+  - openapi/artemis-epic-api-openapi.yml
+  - openapi/artemis-images-api-openapi.yml
+  - openapi/artemis-neows-api-openapi.yml
+unauthenticated_surfaces:
+- host: images-api.nasa.gov
+  note: >-
+    The NASA Image and Video Library takes no key at all. Confirmed by live probe 2026-09-04 —
+    https://images-api.nasa.gov/search?q=artemis returned 200 with no credential.
+- host: trek.nasa.gov
+  note: Moon/Mars/Vesta Trek OGC WMTS tiles and Capabilities documents require no key.
+- host: gibs.earthdata.nasa.gov
+  note: NASA GIBS WMS/WMTS requires no key.
+credential_issuance:
+  self_serve: true
+  signup_url: https://api.nasa.gov/#signUp
+  requires: name and email
+  approval: instant
+  recovery_url: https://api.nasa.gov/assets/html/recoverKey.html
+  multiple_keys: true
+  note: >-
+    NASA states a key issued here "can be used to access data across federal agencies" — it is an
+    api.data.gov gateway credential, not a NASA-only one.
+rotation:
+  self_serve_rotation: false
+  expiry: none published
+  revocation: >-
+    Administrators can disable a key (error code API_KEY_DISABLED), but there is no self-serve
+    rotate or revoke surface documented.
+risks:
+- id: key-in-query-string
+  severity: medium
+  detail: >-
+    The credential travels in the URL on every request, so it lands in server access logs, browser
+    history, proxy logs and Referer headers. The gateway also sets
+    `access-control-allow-origin: *`, which means browser clients call it directly and expose the key
+    client-side. Low blast radius here because the key grants read-only access to public data and
+    only gates rate limit — but it is the reason the Kin Score credentials_not_in_query check fails
+    for every contract on this surface, and it is a real habit-forming problem for developers who
+    carry the pattern to APIs where it matters.
+- id: no-scopes
+  severity: low
+  detail: >-
+    One key, all APIs, no scope or permission model. There is nothing to least-privilege. See
+    scopes — none published, and none applicable without OAuth.

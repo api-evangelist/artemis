@@ -3,160 +3,79 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Artemis
 providerId: artemis
+generated: '2026-09-04'
+method: searched
+source: https://api.nasa.gov/assets/html/authentication.html
+docs:
+- https://api.nasa.gov/
+- https://api.nasa.gov/assets/html/authentication.html
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Exploration
-  - Lunar
-  - Moon
-  - NASA
-  - Space
-  - Government
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-09-04'
+note: >-
+  Replaces the 2026-05-04 bulk-sweep scaffold, which invented a 1,000-requests-per-month quota and a
+  paid shape that does not exist. NASA publishes no pricing page, no paid tier and no billing
+  surface for the api.nasa.gov Open APIs: the entire catalog is a free US federal government data
+  service. The only differentiation NASA publishes is the rate limit attached to a free registered
+  key versus the shared DEMO_KEY, so both are recorded as plans with price 0.
+plan_count: 2
+currency: USD
+pricing_model: free
+paid_tiers: 0
 plans:
-  - id: artemis-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Artemis API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: NASA Open APIs
-      - name: NASA Technology Transfer API
-  - id: artemis-pro
-    name: Professional
-    type: paid
-    description: Production tier for Artemis. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: NASA Open APIs
-      - name: NASA Technology Transfer API
-  - id: artemis-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Artemis. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.nasa.gov
-          - https://technology.nasa.gov
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: NASA Open APIs
-      - name: NASA Technology Transfer API
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- id: artemis-demo-key
+  name: DEMO_KEY
+  type: free
+  price: '0.00'
+  currency: USD
+  billing_period: none
+  signup_required: false
+  description: >-
+    The shared, unregistered key NASA uses in its own documentation examples. Usable immediately with
+    no signup, rate limited per IP address.
+  entries:
+  - label: Hourly requests
+    name: requests_per_hour
+    type: quota
+    metric: requests
+    limit: 30
+    timeFrame: hour
+    scope: ip-address
+  - label: Daily requests
+    name: requests_per_day
+    type: quota
+    metric: requests
+    limit: 50
+    timeFrame: day
+    scope: ip-address
+  source: https://api.nasa.gov/assets/html/authentication.html
+- id: artemis-developer-key
+  name: Registered developer key
+  type: free
+  price: '0.00'
+  currency: USD
+  billing_period: none
+  signup_required: true
+  signup_url: https://api.nasa.gov/#signUp
+  description: >-
+    A free personal API key issued on self-serve signup (name and email). Applies across every
+    api.nasa.gov API and, per NASA, across data from other federal agencies on the same api.data.gov
+    gateway.
+  entries:
+  - label: Hourly requests
+    name: requests_per_hour
+    type: quota
+    metric: requests
+    limit: 1000
+    timeFrame: hour
+    scope: api-key
+  source: https://api.nasa.gov/assets/html/authentication.html
+overage:
+  charged: false
+  behaviour: >-
+    There is no overage charge because there is no charge. Exceeding the limit returns HTTP 429
+    OVER_RATE_LIMIT and temporarily blocks the key for the rolling hour.
+enterprise:
+  contact_only: true
+  note: >-
+    Higher limits are not sold; they are requested from the NASA organization that owns the
+    individual API. No quote, contract or pricing page is published.

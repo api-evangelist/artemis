@@ -1,0 +1,31 @@
+generated: '2026-09-04'
+method: generated
+source: openapi/ contracts and ogc/ capabilities in this repository
+provider: Artemis
+providerId: artemis
+note: >-
+  Packaged Agent Skills for the NASA Open API surface. Every operationId referenced below is present
+  in a contract in openapi/; no operation is invented. NASA publishes no skills or AGENTS.md of its
+  own — searched api.nasa.gov, github.com/nasa and github.com/nasa/api-docs on 2026-09-04.
+skills:
+- name: artemis-space-weather-watch
+  file: skills/artemis-space-weather-watch.md
+  api: Artemis DONKI API
+  operations:
+  - getDonkiNotifications
+  summary: Poll DONKI for solar flares, geomagnetic storms and radiation events across a date window.
+- name: artemis-neo-close-approach-scan
+  file: skills/artemis-neo-close-approach-scan.md
+  api: Artemis NeoWs API
+  operations:
+  - getNeoFeed
+  - lookupNeo
+  - browseNeo
+  summary: Scan near-earth objects by close-approach date, look one up by SPK-ID, or page the dataset.
+- name: artemis-lunar-imagery-lookup
+  file: skills/artemis-lunar-imagery-lookup.md
+  api: Artemis Images API
+  operations:
+  - searchImages
+  - getApod
+  summary: Find Artemis and lunar imagery, pull APOD, and fetch Moon Trek lunar tiles over OGC WMTS.

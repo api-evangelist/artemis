@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "artemis-apod-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "artemis-donki-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "artemis-epic-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "artemis-images-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "artemis-neows-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

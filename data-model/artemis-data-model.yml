@@ -1,0 +1,161 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/artemis-apod-api-openapi.yml, openapi/artemis-neows-api-openapi.yml, openapi/artemis-epic-api-openapi.yml, openapi/artemis-images-api-openapi.yml, openapi/artemis-techport-swagger.json
+note: >-
+  There is no single data model here. api.nasa.gov is a gateway in front of independently built NASA
+  services, and each one has its own vocabulary, its own identifier scheme and no foreign keys into
+  the others. The graph below is therefore several disconnected islands rather than one entity model
+  — which is itself the finding: an agent cannot join an APOD image to a near-earth object or to a
+  TechPort project, because nothing in these contracts references anything in another.
+entities:
+- name: Apod
+  api: Artemis APOD API
+  source: openapi/artemis-apod-api-openapi.yml
+  identifier: date
+  id_format: YYYY-MM-DD (the date IS the primary key)
+  fields:
+  - date
+  - title
+  - explanation
+  - url
+  - hdurl
+  - media_type
+  - service_version
+  - copyright
+  note: >-
+    `copyright` is present only when the image is not public domain — its absence is the signal that
+    an image is freely reusable.
+  relationships: []
+- name: NearEarthObject
+  api: Artemis NeoWs API
+  source: openapi/artemis-neows-api-openapi.yml
+  identifier: asteroid_id
+  id_format: JPL small-body SPK-ID (integer, e.g. 3542519)
+  external_authority: NASA JPL Center for Near-Earth Object Studies
+  relationships:
+  - type: has_many
+    target: CloseApproachData
+    via: close_approach_data
+- name: CloseApproachData
+  api: Artemis NeoWs API
+  source: openapi/artemis-neows-api-openapi.yml
+  identifier: none (embedded array member)
+  relationships:
+  - type: belongs_to
+    target: NearEarthObject
+    via: embedded in the parent object
+- name: NeoFeedPage
+  api: Artemis NeoWs API
+  identifier: none
+  fields:
+  - page.size
+  - page.total_elements
+  - page.total_pages
+  - page.number
+  - links.next
+  - links.prev
+  - links.self
+  method: probed
+  note: Confirmed on a live browse response 2026-09-04; not declared in any NASA contract.
+  relationships:
+  - type: has_many
+    target: NearEarthObject
+    via: near_earth_objects
+- name: DonkiNotification
+  api: Artemis DONKI API
+  source: openapi/artemis-donki-api-openapi.yml
+  identifier: messageID
+  relationships: []
+  note: >-
+    Space weather event notifications. The DONKI service also exposes typed event endpoints (FLR,
+    GST, CME, SEP) that this record does not yet hold contracts for.
+- name: EpicImage
+  api: Artemis EPIC API
+  source: openapi/artemis-epic-api-openapi.yml
+  identifier: image
+  id_format: EPIC image name; the archive tile URL is assembled from the date plus this name
+  relationships: []
+  note: >-
+    A genuine trap for an agent: the metadata endpoint returns an image NAME, not a URL. The caller
+    must construct https://api.nasa.gov/EPIC/archive/natural/YYYY/MM/DD/png/{image}.png itself.
+- name: ImageLibraryItem
+  api: Artemis Images API
+  source: openapi/artemis-images-api-openapi.yml
+  identifier: nasa_id
+  relationships:
+  - type: has_one
+    target: AssetManifest
+    via: nasa_id on /asset/{nasa_id}
+  - type: has_one
+    target: AssetMetadata
+    via: nasa_id on /metadata/{nasa_id}
+- name: ImageLibraryCollection
+  api: Artemis Images API
+  identifier: none
+  fields:
+  - collection.metadata.total_hits
+  - collection.links[rel=prev|next]
+  - collection.items
+  method: probed
+  relationships:
+  - type: has_many
+    target: ImageLibraryItem
+    via: collection.items
+- name: TechPortProject
+  api: NASA TechPort
+  source: openapi/artemis-techport-swagger.json
+  identifier: id
+  id_format: integer (int64)
+  fields_from_contract:
+  - id
+  - lastUpdated
+  relationships:
+  - type: has_many
+    target: TechnologyArea
+    via: technologyArea
+  - type: has_many
+    target: Organization
+    via: organization
+  - type: has_many
+    target: Destination
+    via: destination
+  - type: has_many
+    target: LibraryItem
+    via: libraryItem
+  - type: has_many
+    target: CloseoutDocument
+    via: closeoutDocument
+  - type: has_one
+    target: PrincipalInvestigator
+    via: principalInvestigator
+  - type: has_many
+    target: CoInvestigator
+    via: coInvestigator
+  - type: has_one
+    target: ProgramDirector
+    via: programDirector
+  - type: has_one
+    target: ProgramManager
+    via: programManager
+  - type: has_one
+    target: ProjectManager
+    via: projectManager
+  - type: has_many
+    target: WorkLocation
+    via: workLocation
+  note: >-
+    The only richly modelled entity in this record, and the only one NASA itself declares in a
+    machine-readable contract: the TechPort Swagger names thirteen definitions. It is also the entity
+    most directly tied to the Artemis program, since Artemis-funded technology projects are catalogued
+    here.
+id_prefix_scheme:
+  exists: false
+  note: >-
+    No provider-wide identifier convention. Dates key APOD, JPL SPK-IDs key asteroids, NASA IDs key
+    library media, integers key TechPort projects, messageIDs key DONKI events. Nothing is prefixed
+    or namespaced, so an id alone does not tell you which service it belongs to.
+cross_service_joins:
+  possible: false
+  note: >-
+    No entity in any of these contracts carries a foreign key into another NASA service. Joining
+    them requires an external correlation (usually a date or a free-text search).

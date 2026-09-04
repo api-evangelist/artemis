@@ -1,0 +1,122 @@
+generated: '2026-09-04'
+method: searched
+source: https://api.data.gov/docs/developer-manual/
+docs:
+- https://api.data.gov/docs/developer-manual/
+- https://api.nasa.gov/assets/html/authentication.html
+format: vendor-json
+rfc9457: false
+note: >-
+  api.nasa.gov is fronted by the api.data.gov API Umbrella gateway (confirmed by the
+  `via: https/1.1 api-umbrella (ApacheTrafficServer)` response header). That produces TWO different
+  error envelopes on the same host, which is the single most important thing for an agent to know
+  here: gateway-level failures (auth, rate limit, routing) use one shape, and the upstream NASA
+  service uses its own. Neither is RFC 9457 problem+json; both are served as application/json with
+  content-type application/json, and the gateway will also emit XML, CSV or HTML depending on the
+  detected request format.
+envelopes:
+- id: gateway
+  layer: api.data.gov API Umbrella gateway
+  content_type: application/json
+  shape:
+    error:
+      code: string
+      message: string
+  example_probed:
+    method: probed
+    url: https://api.nasa.gov/planetary/apod
+    fetched: '2026-09-04'
+    http_status: 403
+    body: '{"error":{"code":"API_KEY_MISSING","message":"No api_key was supplied. Get one at https://api.nasa.gov:443"}}'
+  guidance: >-
+    NASA/api.data.gov explicitly say to branch on the HTTP status code or the `error.code` value and
+    NOT on `error.message`, because message text is subject to change.
+  alternate_formats:
+  - xml
+  - csv
+  - html
+- id: service
+  layer: "upstream NASA service (example: the APOD service)"
+  content_type: application/json
+  shape:
+    code: integer
+    msg: string
+    service_version: string
+  example_probed:
+    method: probed
+    url: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=notadate
+    fetched: '2026-09-04'
+    http_status: 400
+    body: '{"code":400,"msg":"time data ''notadate'' does not match format ''%Y-%m-%d''","service_version":"v1"}'
+  guidance: >-
+    Validation errors from the API itself never reach the gateway envelope. An agent parsing only
+    `error.code` will read `undefined` on every upstream 400. Check for `error` first, then fall
+    back to top-level `code`/`msg`.
+problem_types:
+- code: API_KEY_MISSING
+  status: 403
+  envelope: gateway
+  title: No API key was supplied
+  remediation: Pass api_key as a query parameter, or use DEMO_KEY for low-volume exploration.
+  source: https://api.data.gov/docs/developer-manual/
+- code: API_KEY_INVALID
+  status: 403
+  envelope: gateway
+  title: An invalid API key was supplied
+  remediation: Check the key value, or sign up for a key at https://api.nasa.gov/#signUp
+  source: https://api.data.gov/docs/developer-manual/
+  verified:
+    method: probed
+    url: https://api.nasa.gov/planetary/apod?api_key=NOTAREALKEY123
+    fetched: '2026-09-04'
+    http_status: 403
+- code: API_KEY_DISABLED
+  status: 403
+  envelope: gateway
+  title: The API key has been disabled by an administrator
+  remediation: Contact the NASA organization that owns the API.
+  source: https://api.data.gov/docs/developer-manual/
+- code: API_KEY_UNAUTHORIZED
+  status: 403
+  envelope: gateway
+  title: The API key is not authorized to access this service
+  remediation: Contact the NASA organization that owns the API.
+  source: https://api.data.gov/docs/developer-manual/
+- code: API_KEY_UNVERIFIED
+  status: 403
+  envelope: gateway
+  title: The API key has not been verified yet
+  remediation: Check the signup email and complete verification.
+  source: https://api.data.gov/docs/developer-manual/
+- code: HTTPS_REQUIRED
+  status: 400
+  envelope: gateway
+  title: Requests to this API must be made over HTTPS
+  remediation: Reissue the request against the https:// scheme.
+  source: https://api.data.gov/docs/developer-manual/
+- code: OVER_RATE_LIMIT
+  status: 429
+  envelope: gateway
+  title: The API key has exceeded the rate limits
+  remediation: >-
+    Back off. The block clears one hour after the requests that caused it, on a rolling basis. There
+    is no Retry-After header — see rate-limits/artemis-rate-limits.yml.
+  source: https://api.data.gov/docs/developer-manual/
+- code: NOT_FOUND
+  status: 404
+  envelope: gateway
+  title: No API could be found at the given URL
+  remediation: Check the path. The gateway, not the service, produces this.
+  source: https://api.data.gov/docs/developer-manual/
+- code: '400'
+  status: 400
+  envelope: service
+  title: Upstream request validation failure
+  remediation: >-
+    Read `msg` for the specific field problem. Observed for a malformed APOD `date`; the APOD
+    service also rejects dates outside its published coverage window.
+  source: probed
+cross_references:
+  rate_limits: rate-limits/artemis-rate-limits.yml
+  authentication: authentication/artemis-authentication.yml
+  conventions: conventions/artemis-conventions.yml

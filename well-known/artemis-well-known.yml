@@ -1,0 +1,95 @@
+generated: '2026-09-04'
+method: probed
+source: live GET of each /.well-known/ path on every host this record knows (apis.yml baseURLs, OpenAPI servers[], docs host, registrable domain)
+note: >-
+  Nothing was found. Every /.well-known/ path probed on every NASA host returned 404, and the one
+  200 (techport.nasa.gov/.well-known/security.txt) is the TechPort single-page-app catch-all
+  returning the Angular index.html for any unknown path, not a security.txt — it is recorded as a
+  miss. NASA does publish a vulnerability disclosure policy, but as an HTML page at
+  www.nasa.gov/vulnerability-disclosure-policy/ and a Bugcrowd engagement, not as a
+  machine-readable /.well-known/security.txt. No WellKnown or SecurityTxt pointer is emitted for
+  this record because no path served a real document.
+hosts:
+- host: api.nasa.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: technology.nasa.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: images-api.nasa.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: www.nasa.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: techport.nasa.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: >-
+      NOT a document. 1,650 bytes of the TechPort Angular index.html (application-version 4.4.3);
+      the SPA catch-all answers 200 for every unknown path. Treated as a miss.
+- host: trek.nasa.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404

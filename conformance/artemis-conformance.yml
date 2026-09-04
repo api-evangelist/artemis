@@ -1,0 +1,133 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Fetched OGC WMTS GetCapabilities documents plus the NASA/api.data.gov published authentication and
+  error documentation; cross-checked against the captured OpenAPI/Swagger contracts in openapi/.
+docs:
+- https://api.nasa.gov/
+- https://api.data.gov/docs/developer-manual/
+note: >-
+  Only standards this provider's own contracts or documentation actually declare are recorded.
+  Anything not evidenced is recorded as conforms:false rather than omitted, so the absence is
+  readable.
+conformance:
+- id: ogc-wmts-1.0.0
+  name: OGC Web Map Tile Service 1.0.0
+  conforms: true
+  domain_standard: true
+  evidence: https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml
+  http_status: 200
+  artifact: ogc/artemis-moon-trek-lro-wac-wmts-capabilities.xml
+  declaration: >-
+    The fetched document is a WMTS 1.0.0 Capabilities response in the
+    http://www.opengis.net/wmts/1.0 namespace whose ows:ServiceIdentification declares
+    ows:ServiceType "OGC WMTS" and ows:ServiceTypeVersion "1.0.0" for the LRO WAC global lunar
+    mosaic. The contract declares the standard about itself; this is not a prose marketing claim.
+  significance: >-
+    This is the domain standard for the market NASA is serving here. Any GIS or mapping client that
+    already speaks WMTS consumes Moon Trek lunar imagery with no bespoke connector.
+- id: ogc-wmts-1.0.0-mars
+  name: OGC Web Map Tile Service 1.0.0 (api.nasa.gov mars-wmts catalog)
+  conforms: true
+  domain_standard: true
+  evidence: https://api.nasa.gov/mars-wmts/catalog/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/WMTSCapabilities.xml
+  http_status: 200
+  artifact: ogc/artemis-mars-wmts-viking-mdim21-capabilities.xml
+  declaration: >-
+    ows:ServiceType "OGC WMTS", ows:ServiceTypeVersion "1.0.0", served from the api.nasa.gov host
+    itself. Confirms the OGC surface is not only on the JPL Trek hosts but on the primary API host
+    this record is built around.
+- id: ogc-wms-1.3.0
+  name: OGC Web Map Service 1.3.0 (NASA GIBS)
+  conforms: true
+  domain_standard: true
+  evidence: https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetCapabilities
+  http_status: 200
+  declaration: >-
+    Root element WMS_Capabilities version="1.3.0" in the http://www.opengis.net/wms namespace.
+    Capabilities document not saved to this repo: it is 2.5 MB and describes NASA's Earth-science
+    imagery catalog, which sits outside this record's Artemis/lunar scope. Recorded as a probed
+    conformance with its URL so the surface is not lost.
+- id: ogc-wmts-1.0.0-gibs
+  name: OGC Web Map Tile Service 1.0.0 (NASA GIBS)
+  conforms: true
+  domain_standard: true
+  evidence: https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/1.0.0/WMTSCapabilities.xml
+  http_status: 200
+  declaration: >-
+    WMTS 1.0.0 Capabilities, 5.3 MB. Same scope note as the GIBS WMS entry — probed and recorded,
+    not saved.
+- id: openapi
+  name: OpenAPI Specification
+  conforms: true
+  evidence: openapi/artemis-apod-api-openapi.yml
+  note: >-
+    Five OpenAPI 3.2.0 documents refined by API Evangelist from NASA's published documentation, plus
+    two Swagger 2.0 documents NASA itself publishes inside
+    https://api.nasa.gov/assets/json/apis.json (APOD and TechPort). The NASA-authored ones are the
+    only first-party machine-readable contracts on this surface.
+- id: swagger-2.0
+  name: Swagger / OpenAPI 2.0
+  conforms: true
+  evidence: https://api.nasa.gov/assets/json/apis.json
+  http_status: 200
+  artifact: openapi/artemis-apod-swagger.json
+  declaration: >-
+    NASA's own API catalog JSON carries a `swagger_data` object for two of its sixteen APIs, each
+    declaring "swagger": "2.0". Provider-authored, not derived.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: authentication/artemis-authentication.yml
+  note: No OAuth surface. Authentication is a single api_key query parameter.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: well-known/artemis-well-known.yml
+  note: /.well-known/openid-configuration returned 404 on every host probed.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: errors/artemis-problem-types.yml
+  note: >-
+    Errors are vendor JSON in two different shapes, served as application/json. No
+    application/problem+json anywhere.
+- id: rfc8594
+  name: RFC 8594 Sunset HTTP Header
+  conforms: false
+  evidence: lifecycle/artemis-lifecycle.yml
+  note: No Sunset or Deprecation headers observed; no deprecation policy published.
+- id: idempotency
+  name: Idempotency-Key replay protection
+  conforms: false
+  applicable: false
+  evidence: conventions/artemis-conventions.yml
+  note: Read-only surface. Not applicable rather than missing.
+- id: json-api
+  name: JSON:API
+  conforms: false
+  evidence: openapi/
+  note: Responses are bespoke per service; no JSON:API document structure.
+- id: pagination
+  name: Consistent pagination convention
+  conforms: false
+  evidence: conventions/artemis-conventions.yml
+  note: >-
+    Three different bounding strategies coexist on one host (page-number on the Image Library,
+    page/size on NeoWs browse, date-window everywhere else) and none of them is documented.
+compliance:
+  regime: US federal government / civil space agency
+  published_programs:
+  - name: NASA Vulnerability Disclosure Policy
+    url: https://www.nasa.gov/vulnerability-disclosure-policy/
+    http_status: 200
+    basis: CISA Binding Operational Directive 20-01
+    detail: security/artemis-vulnerability-disclosure.yml
+  - name: NASA Web Privacy Policy
+    url: https://www.nasa.gov/privacy/
+    http_status: 200
+  note: >-
+    NASA publishes no SOC 2, ISO 27001, PCI or FedRAMP certification for the public api.nasa.gov data
+    surface — those frames do not apply to a free, unauthenticated, read-only federal open-data
+    service. The compliance program that does apply and is published is the federally mandated
+    vulnerability disclosure policy.

@@ -1,0 +1,66 @@
+generated: '2026-09-04'
+method: searched
+source: https://api.nasa.gov/
+docs:
+- https://api.nasa.gov/
+- https://github.com/nasa/api-docs
+note: >-
+  Searched api.nasa.gov, the nasa/api-docs repository that publishes it, api.data.gov (the gateway
+  operator) and www.nasa.gov for a versioning policy, a deprecation policy, a status page, an SLA and
+  a changelog. None of the five exists. This is the weakest part of the NASA Open API posture and it
+  is a real operational risk for anyone building on it: there is no announced channel through which a
+  breaking change or a retirement would reach a consumer.
+versioning:
+  policy_published: false
+  scheme: inconsistent path segment
+  observed:
+  - path: /neo/rest/v1/feed
+    version: v1
+  - path: /EPIC/api/natural
+    version: none in path
+  - path: /planetary/apod
+    version: none in path
+    body_field: service_version ("v1", observed in the response body)
+  - path: /api/projects{.format}
+    host: techport.nasa.gov
+    version: TechPort swagger info.version 3.4.0
+  note: >-
+    Each NASA service versions itself. There is no provider-wide scheme and no statement about what
+    constitutes a breaking change.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No Deprecation or Sunset response headers observed, no deprecation policy page, and no operation
+    in any captured contract is marked deprecated. NASA has retired APIs from this catalog before
+    (the Mars Rover Photos and InSight Weather services have both changed availability) without a
+    machine-readable notice path.
+status_page:
+  exists: false
+  url: null
+  note: >-
+    No status.nasa.gov, no api.nasa.gov status page, and api.data.gov (which operates the gateway)
+    publishes none either — status.data.gov does not resolve (DNS NXDOMAIN, probed 2026-09-04). A
+    consumer discovers an outage by getting an error.
+sla:
+  published: false
+  uptime_target: null
+  note: >-
+    No service level agreement. This is a free US federal government data service provided as-is.
+changelog:
+  published: false
+  url: null
+  note: >-
+    No dated changelog. The nearest thing is the commit history of the nasa/api-docs GitHub
+    repository, which records edits to the documentation catalog rather than changes to the APIs.
+  nearest: https://github.com/nasa/api-docs/commits
+support:
+  channel: per-API, via the NASA organization that owns each service
+  note: >-
+    NASA states plainly that api.nasa.gov "acts as a central catalog and key service for public APIs.
+    It does not hold the actual API code. For bugs in the APIs, please look for a link to the
+    individual API pages and reach out there." There is no single support desk for the surface.
+  source: https://api.nasa.gov/assets/html/browseAPI.html

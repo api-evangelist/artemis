@@ -47,7 +47,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/artemis/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-04-19'
+modified: '2026-09-04'
 specificationVersion: '0.23'
 apis:
 - aid: artemis:nasa-open-api
@@ -96,6 +96,11 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/artemis-apod-api-openapi.yml
+  - type: Overlay
+    url: overlays/artemis-apod-api-overlay.yaml
+  - type: OpenAPI
+    url: openapi/artemis-apod-swagger.json
+    title: APOD Swagger 2.0 — published by NASA inside api.nasa.gov/assets/json/apis.json
 - aid: artemis:artemis-donki-api
   name: Artemis DONKI API
   description: Space Weather Database Of Notifications, Knowledge, Information
@@ -106,6 +111,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/artemis-donki-api-openapi.yml
+  - type: Overlay
+    url: overlays/artemis-donki-api-overlay.yaml
 - aid: artemis:artemis-epic-api
   name: Artemis EPIC API
   description: Earth Polychromatic Imaging Camera
@@ -118,6 +125,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/artemis-epic-api-openapi.yml
+  - type: Overlay
+    url: overlays/artemis-epic-api-overlay.yaml
 - aid: artemis:artemis-images-api
   name: Artemis Images API
   description: NASA Image and Video Library
@@ -130,6 +139,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/artemis-images-api-openapi.yml
+  - type: Overlay
+    url: overlays/artemis-images-api-overlay.yaml
 - aid: artemis:artemis-neows-api
   name: Artemis NeoWs API
   description: Near Earth Object Web Service
@@ -140,7 +151,35 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/artemis-neows-api-openapi.yml
+  - type: Overlay
+    url: overlays/artemis-neows-api-overlay.yaml
+- aid: artemis:nasa-techport-api
+  name: NASA TechPort API
+  description: >-
+    TechPort is NASA's public catalog of its technology development projects, including the technology
+    investments made through the Artemis program. The API returns project records — funding, work
+    locations, technology areas, destinations, investigators and closeout documents — in JSON or XML.
+    NASA publishes a Swagger 2.0 contract for it (version 3.4.0) inside its own API catalog document
+    at https://api.nasa.gov/assets/json/apis.json; that document is captured verbatim in this repo.
+  humanURL: https://techport.nasa.gov/
+  baseURL: https://techport.nasa.gov/api
+  tags:
+  - Technology
+  - Research
+  - NASA
+  - Projects
+  - Open Data
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-techport-swagger.json
+    title: TechPort Swagger 2.0 v3.4.0 — published by NASA
+  - type: Documentation
+    url: https://api.nasa.gov/
+  - type: DeveloperPortal
+    url: https://techport.nasa.gov/
 common:
+  - type: Website
+    url: https://www.nasa.gov/artemis/
   - type: AgenticAccess
     url: agentic-access/artemis-agentic-access.yml
   - type: DomainSecurity
@@ -149,8 +188,6 @@ common:
     url: authentication/artemis-authentication.yml
   - url: https://www.nasa.gov/feed/
     type: Blog
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/artemisag
   - type: Portal
     url: https://www.nasa.gov/artemis/
     title: Artemis Program Website
@@ -166,6 +203,46 @@ common:
   - type: PrivacyPolicy
     url: https://www.nasa.gov/privacy/
     title: Privacy Policy
+  - type: Support
+    url: https://github.com/nasa/api-docs/issues
+    title: NASA API catalog issue tracker
+  - type: TermsOfService
+    url: https://www.nasa.gov/nasa-brand-center/images-and-media/
+    title: NASA Media Usage Guidelines
+  - type: Security
+    url: https://www.nasa.gov/vulnerability-disclosure-policy/
+    title: NASA Vulnerability Disclosure Policy
+  - type: VulnerabilityDisclosure
+    url: security/artemis-vulnerability-disclosure.yml
+  - type: Conventions
+    url: conventions/artemis-conventions.yml
+  - type: ErrorCatalog
+    url: errors/artemis-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/artemis-rate-limits.yml
+  - type: Plans
+    url: plans/artemis-plans-pricing.yml
+  - type: Lifecycle
+    url: lifecycle/artemis-lifecycle.yml
+  - type: Conformance
+    url: conformance/artemis-conformance.yml
+  - type: DataModel
+    url: data-model/artemis-data-model.yml
+  - type: Packages
+    url: packages/artemis-packages.yml
+  - type: LLMsTxt
+    url: llms/artemis-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: X-MCPServerCandidate
+    url: mcp/artemis-mcp.yml
+    title: Candidate MCP tool list derived from the OpenAPI — NASA ships no MCP server
+  - type: GetCapabilities
+    url: https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml
+    title: Moon Trek LRO WAC global lunar mosaic — OGC WMTS 1.0.0
+  - type: GetCapabilities
+    url: https://api.nasa.gov/mars-wmts/catalog/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/WMTSCapabilities.xml
+    title: api.nasa.gov Mars WMTS catalog — OGC WMTS 1.0.0
   - type: Features
     data:
       - name: Astronomy Picture of the Day API
@@ -236,3 +313,8 @@ integrations:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v3

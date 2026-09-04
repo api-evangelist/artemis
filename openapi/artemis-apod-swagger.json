@@ -1,0 +1,89 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other applications. In addition, if the concept_tags parameter is set to True, then keywords derived from the image explanation are returned. These keywords could be used as auto-generated hashtags for twitter or instagram feeds; but generally help with discoverability of relevant imagery",
+    "version": "1.0.0",
+    "title": "APOD",
+    "termsOfService": "",
+    "contact": {
+      "email": "evan.t.yates@nasa.gov"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "api.nasa.gov",
+  "basePath": "/planetary",
+  "tags": [
+    {
+      "name": "request tag",
+      "description": "An example tag",
+      "externalDocs": {
+        "description": "Here's a link",
+        "url": "https://example.com"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/apod": {
+      "get": {
+        "tags": [
+          "request tag"
+        ],
+        "summary": "Returns images",
+        "descriptions": "Returns the picture of the day",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date of the APOD image to retrieve",
+            "required": false,
+            "type": "string",
+            "schema": "date"
+          },
+          {
+            "name": "hd",
+            "in": "query",
+            "description": "Retrieve the URL for the high resolution image",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "thing": "ok"
+              }
+            }
+          },
+          "400": {
+            "description": "Date must be between Jun 16, 1995 and Mar 28, 2019."
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "query"
+    }
+  }
+}

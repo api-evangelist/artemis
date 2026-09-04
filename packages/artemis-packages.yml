@@ -1,0 +1,88 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  npm registry search + registry.npmjs.org metadata, pypi.org/pypi/<pkg>/json, and the NASA GitHub
+  organization (github.com/nasa) and api.nasa.gov documentation.
+note: >-
+  THE HEADLINE FINDING IS AN ABSENCE. NASA publishes no first-party client library for the
+  api.nasa.gov Open API surface in any language — not on npm, PyPI, RubyGems, Maven Central, NuGet,
+  crates.io or pkg.go.dev, and the api.nasa.gov documentation links to none. Every package below is
+  a third-party community wrapper, and every one of them is abandoned: the newest release in the set
+  is February 2025 and the most-downloaded is frozen at March 2021. `official` is false on all of
+  them and no SDKs pointer is emitted for this record, because emitting one would credit NASA with
+  client libraries it does not ship. NASA does publish software on GitHub (Open MCT, Cumulus, GCN
+  tooling) but none of it wraps this API surface.
+official_sdk_count: 0
+community_sdk_count: 5
+packages:
+- name: nasa-sdk
+  registry: npm
+  url: https://www.npmjs.com/package/nasa-sdk
+  repository: https://github.com/AJFunk/nasa-sdk
+  language: javascript
+  official: false
+  maintainer: ajfunk (community)
+  description: SDK for NASA API
+  version: 1.1.11
+  published: '2021-03-04'
+  note: >-
+    The most established community wrapper. Last released more than five years ago; it predates
+    several changes to the catalog it wraps.
+- name: '@clxrity/nasa-api'
+  registry: npm
+  url: https://www.npmjs.com/package/@clxrity/nasa-api
+  repository: null
+  language: typescript
+  official: false
+  maintainer: clxrity (community)
+  description: A NASA API wrapper for Node.js
+  version: 0.4.9
+  published: '2025-02-23'
+  note: The most recently maintained community client found.
+- name: nasa-api
+  registry: npm
+  url: https://www.npmjs.com/package/nasa-api
+  repository: https://gitlab.com/EdisonTKPcom/nasa-api
+  language: javascript
+  official: false
+  maintainer: edisontkp (community)
+  version: 0.0.4
+  published: '2019-09-15'
+- name: nasapy
+  registry: pypi
+  url: https://pypi.org/project/nasapy/
+  language: python
+  official: false
+  maintainer: community
+  description: Python wrapper for the NASA API
+  version: 0.2.7
+  published: '2020-06-16'
+- name: nasa-api
+  registry: pypi
+  url: https://pypi.org/project/nasa-api/
+  language: python
+  official: false
+  maintainer: community
+  description: An API Wrapper for the Nasa API
+  version: 0.0.2
+  published: '2021-10-20'
+searched_registries:
+- registry: npm
+  result: no first-party NASA package for this API surface
+- registry: pypi
+  result: no first-party NASA package for this API surface
+- registry: rubygems
+  result: none found
+- registry: maven-central
+  result: none found
+- registry: nuget
+  result: none found
+- registry: crates.io
+  result: none found
+- registry: pkg.go.dev
+  result: none found
+consequence: >-
+  With no first-party SDK and no maintained community one, every consumer of api.nasa.gov writes raw
+  HTTP against a query-string API key. That is workable for a read-only service, and it is also why
+  the OpenAPI contracts in openapi/ matter more here than they would for a provider that ships
+  clients: the spec is the only integration surface a generator can act on.

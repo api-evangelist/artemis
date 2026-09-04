@@ -1,0 +1,140 @@
+generated: '2026-09-04'
+method: searched
+source: https://api.nasa.gov/assets/html/authentication.html
+docs:
+- https://api.nasa.gov/
+- https://api.nasa.gov/assets/html/authentication.html
+- https://api.data.gov/docs/developer-manual/
+note: >-
+  Cross-cutting runtime semantics for the NASA Open API surface at api.nasa.gov. Two layers are in
+  play and they behave differently: the api.data.gov API Umbrella gateway owns authentication, rate
+  limiting and the 4xx envelope, while each NASA service behind it owns its own paths, parameters,
+  pagination and validation errors. There is no single house style across the services — APOD, NeoWs,
+  DONKI, EPIC and the Image Library each shipped independently and their conventions differ.
+authentication:
+  style: api-key
+  transport: query parameter
+  parameter: api_key
+  header_alternative: null
+  note: >-
+    The key travels in the query string on every request. There is no header form documented, which
+    means keys land in server logs, browser history and referrer headers. DEMO_KEY is a published
+    shared value for exploration. See authentication/artemis-authentication.yml.
+  docs: https://api.nasa.gov/assets/html/authentication.html
+idempotency:
+  coverage: na
+  scope: []
+  mechanism: none
+  note: >-
+    The entire public api.nasa.gov surface is read-only — every documented operation is a GET.
+    There is no mutating request to replay, so replay protection is not applicable rather than
+    missing. If NASA ever exposes a write endpoint this becomes `none` until a mechanism exists.
+reversibility:
+  grade: na
+  write_surface: false
+  reversal_operations: []
+  note: >-
+    Read-only API. Nothing an agent can call here changes state on NASA's side, so there is nothing
+    to take back. Recorded as not-applicable, not as an undocumented gap.
+dry_run_mode:
+  supported: na
+  note: Read-only surface; every call is already side-effect free.
+pagination:
+  consistent: false
+  method: probed
+  probe_note: >-
+    NASA's own catalog documentation does not describe pagination for these services at all — it
+    documents only the date-window parameters. The page/size shapes below were confirmed by live
+    unauthenticated probes on 2026-09-04 (images-api.nasa.gov/search?q=artemis&page=2&page_size=5
+    returned collection.metadata.total_hits and prev/next links; api.nasa.gov/neo/rest/v1/neo/browse
+    ?page=1&size=2 returned page.size/total_elements/total_pages/number). An agent reading only the
+    docs would not know these parameters exist.
+  styles:
+  - api: NASA Image and Video Library (images-api.nasa.gov /search)
+    style: page-number
+    params:
+    - page
+    - page_size
+    response_fields:
+    - collection.metadata.total_hits
+    - collection.links
+  - api: Asteroids NeoWs (/neo/rest/v1/neo/browse)
+    style: page-number
+    params:
+    - page
+    - size
+    response_fields:
+    - page.size
+    - page.total_elements
+    - page.total_pages
+    - page.number
+  - api: Asteroids NeoWs (/neo/rest/v1/feed)
+    style: date-window
+    params:
+    - start_date
+    - end_date
+    note: Capped at a 7-day window; not paginated, bounded instead.
+  - api: DONKI, EPIC, APOD
+    style: date-window
+    params:
+    - start_date
+    - end_date
+    - date
+    note: No page cursor at all — the caller narrows by date.
+  note: >-
+    An agent cannot write one pager for this provider. Three different bounding strategies coexist
+    on one host.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  custom_metadata: false
+request_id:
+  header: X-Api-Umbrella-Request-Id
+  method: probed
+  note: >-
+    Observed on every live response. It is the gateway's correlation id, not a NASA service id, but
+    it is the only trace handle available and is worth capturing in logs when reporting a problem.
+versioning:
+  style: path-segment, per service, inconsistent
+  examples:
+  - /neo/rest/v1/feed
+  - /EPIC/api/natural
+  - /planetary/apod
+  note: >-
+    NeoWs carries an explicit /v1; EPIC and APOD carry no version in the path. APOD returns a
+    `service_version` field in its body (observed value "v1"). There is no announced versioning
+    policy covering the surface as a whole.
+error_envelope:
+  consistent: false
+  gateway_shape: '{"error":{"code":"...","message":"..."}}'
+  service_shape: '{"code":400,"msg":"...","service_version":"v1"}'
+  rfc9457: false
+  detail: errors/artemis-problem-types.yml
+rate_limit_signaling:
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  reset_header: null
+  retry_after: null
+  status: 429
+  detail: rate-limits/artemis-rate-limits.yml
+content_negotiation:
+  default: application/json
+  others:
+  - application/xml
+  - text/csv
+  note: >-
+    Gateway errors can be returned in JSON, XML, CSV or HTML depending on the detected request
+    format. TechPort takes an explicit `{.format}` path suffix of json or xml.
+cors:
+  enabled: true
+  access_control_allow_origin: '*'
+  method: probed
+  note: Browser clients can call api.nasa.gov directly, which also means the key is exposed client-side.
+cross_references:
+  errors: errors/artemis-problem-types.yml
+  lifecycle: lifecycle/artemis-lifecycle.yml
+  authentication: authentication/artemis-authentication.yml
+  rate_limits: rate-limits/artemis-rate-limits.yml

@@ -3,96 +3,93 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Artemis
 providerId: artemis
+generated: '2026-09-04'
+method: searched
+source: https://api.nasa.gov/assets/html/authentication.html
+docs:
+- https://api.nasa.gov/assets/html/authentication.html
+- https://api.data.gov/docs/developer-manual/
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-04'
+note: >-
+  Replaces the 2026-05-04 bulk-sweep scaffold. Every value below is NASA-published or observed on a
+  live unauthenticated response. api.nasa.gov runs on the api.data.gov API Umbrella gateway (the
+  `via: https/1.1 api-umbrella (ApacheTrafficServer)` response header confirms it), so the limits,
+  headers and 429 semantics are the shared api.data.gov policy that NASA restates verbatim on its
+  own authentication page.
 tags:
-  - Exploration
-  - Lunar
-  - Moon
-  - NASA
-  - Space
-  - Government
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Artemis API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+- NASA
+- Space
+- Government
+- Rate Limiting
+- Quotas
+description: >-
+  Published rate limits for the NASA Open API surface at api.nasa.gov, plus the runtime headers the
+  gateway actually returns.
 headers:
   limit: X-RateLimit-Limit
   remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    Only X-RateLimit-Limit and X-RateLimit-Remaining are served. There is no reset, Retry-After or
+    RateLimit-Policy header, so an agent can see how much budget is left but cannot learn when it
+    refills except from the documented rolling-hour rule. The gateway advertises the two headers to
+    browsers via `access-control-expose-headers: X-RateLimit-Limit, X-RateLimit-Remaining`.
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
+  unauthorized: 403
+observed:
+  method: probed
+  url: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+  fetched: '2026-09-04'
+  http_status: 200
+  headers:
+    x-ratelimit-limit: '10'
+    x-ratelimit-remaining: '8'
+    access-control-expose-headers: X-RateLimit-Limit, X-RateLimit-Remaining
+    via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+  note: >-
+    The live DEMO_KEY response advertised X-RateLimit-Limit: 10, lower than the 30/hour the docs
+    state for DEMO_KEY. Recorded as observed rather than reconciled — an agent should trust the
+    header, not the documentation number.
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - NASA Open APIs
-      - NASA Technology Transfer API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - NASA Open APIs
-      - NASA Technology Transfer API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - NASA Open APIs
-      - NASA Technology Transfer API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - NASA Open APIs
-      - NASA Technology Transfer API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - NASA Open APIs
-      - NASA Technology Transfer API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- tier: demo
+  name: DEMO_KEY (shared, unregistered)
+  scope: ip-address
+  metric: requests_per_hour
+  limit: 30
+  window: 1h
+  source: https://api.nasa.gov/assets/html/authentication.html
+- tier: demo
+  name: DEMO_KEY (shared, unregistered)
+  scope: ip-address
+  metric: requests_per_day
+  limit: 50
+  window: 24h
+  source: https://api.nasa.gov/assets/html/authentication.html
+- tier: registered
+  name: Registered developer API key
+  scope: api-key
+  metric: requests_per_hour
+  limit: 1000
+  window: 1h
+  reset: rolling
+  applies_to: all api.nasa.gov requests for that key, across every API
+  source: https://api.nasa.gov/assets/html/authentication.html
+exhaustion:
+  status: 429
+  error_code: OVER_RATE_LIMIT
+  behaviour: >-
+    The API key is temporarily blocked. The block lifts automatically one hour after the requests
+    that caused it, on a rolling basis — NASA's worked example: 500 requests at 10:15AM and 500 at
+    10:25AM blocks the key; it unblocks for 500 requests at 11:15AM and another 500 at 11:25AM.
+  source: https://api.data.gov/docs/developer-manual/
+increase:
+  self_serve: false
+  process: >-
+    No published tier upgrade. Higher limits are requested by contacting the NASA team responsible
+    for the individual API; there is no rate-limit purchase path.
+  source: https://api.nasa.gov/assets/html/authentication.html

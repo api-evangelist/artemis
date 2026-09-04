@@ -1,0 +1,61 @@
+generated: '2026-09-04'
+method: searched
+source: https://api.nasa.gov/assets/html/authentication.html
+docs:
+- https://api.nasa.gov/assets/html/authentication.html
+- https://api.nasa.gov/
+note: >-
+  NASA ships no separate sandbox environment, no test host, and no test/live key split — there is one
+  production surface and the data is public. What it does publish, and what functions as the try-it
+  path, is DEMO_KEY: a real, documented, shared credential that works against production immediately
+  with no signup. It is recorded here because it is the published zero-friction entry point an agent
+  or developer actually uses, not because it isolates anything.
+sandbox_environment:
+  exists: false
+  host: null
+  note: No separate sandbox/staging host is published. api.nasa.gov is production.
+test_mode:
+  exists: false
+  note: >-
+    No test-vs-live mode, no key prefix scheme, no mode flag. api.nasa.gov keys are opaque strings
+    with no published prefix convention.
+shared_test_credential:
+  name: DEMO_KEY
+  value: DEMO_KEY
+  literal: true
+  verbatim_from_provider: true
+  usage: pass as the api_key query parameter
+  example: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+  limits:
+    requests_per_hour: 30
+    requests_per_day: 50
+    scope: per IP address
+  purpose: >-
+    "This API key can be used for initially exploring APIs prior to signing up, but it has much lower
+    rate limits" — NASA, api.nasa.gov authentication page.
+  verified:
+    method: probed
+    url: https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+    fetched: '2026-09-04'
+    http_status: 200
+  caution: >-
+    DEMO_KEY hits real production data and its limits are shared across everyone behind the same
+    egress IP. It is a demo credential, not an isolated test fixture — an agent sharing an IP with
+    other callers can be throttled by their traffic.
+test_data:
+  fixtures: false
+  test_cards: null
+  test_clocks: false
+  note: >-
+    Not applicable. The API is read-only over real published NASA science data; there is nothing to
+    fixture. Deterministic examples do exist in the docs (APOD date 2015-09-07, asteroid SPK-ID
+    3542519, NeoWs feed 2015-09-07 to 2015-09-08) and those make good regression anchors because the
+    underlying records are historical and stable.
+console:
+  exists: true
+  type: docs-embedded example links
+  url: https://api.nasa.gov/
+  note: >-
+    api.nasa.gov renders each API's documented example query as a clickable live link against
+    DEMO_KEY. It is not an interactive request builder — there is no Try-It console, no OpenAPI
+    playground, and no request editor.

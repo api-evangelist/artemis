@@ -1,0 +1,107 @@
+# Artemis — NASA Open APIs
+
+> NASA's Artemis program is the United States' return-to-the-Moon effort: the Space Launch System,
+> the Orion spacecraft, the Lunar Gateway station and commercial landers. The programmatic surface
+> API Evangelist tracks under this record is NASA's public developer platform at api.nasa.gov —
+> sixteen catalogued public APIs covering imagery, near-earth objects, space weather, Earth
+> observation, planetary map tiles and technology transfer — plus the OGC map services that serve
+> lunar and planetary imagery.
+
+Provenance: generated 2026-09-04 by the API Evangelist enrichment pipeline from this repository's
+artifacts and NASA's own published catalog at https://api.nasa.gov/assets/json/apis.json. NASA does
+not publish an llms.txt; probed /llms.txt on api.nasa.gov, www.nasa.gov, technology.nasa.gov and
+images-api.nasa.gov, all 404 on 2026-09-04.
+
+## What you need to know before calling anything
+
+- Base URL: https://api.nasa.gov (the NASA Image and Video Library is on https://images-api.nasa.gov;
+  TechPort is on https://techport.nasa.gov/api).
+- Auth: one `api_key` **query parameter**. No header form is documented. `DEMO_KEY` works with no
+  signup at 30 requests/hour and 50/day per IP; a free registered key raises that to 1,000/hour.
+- Everything is read-only. Every documented operation is a GET over public data. There is no write,
+  so no idempotency and no reversal to worry about.
+- Rate-limit signal: `X-RateLimit-Limit` and `X-RateLimit-Remaining` on every response. There is no
+  reset header and no `Retry-After`. Exhaustion is HTTP 429 `OVER_RATE_LIMIT`, cleared on a rolling
+  hour.
+- Errors come in two shapes on the same host. Gateway failures (auth, rate limit, routing) are
+  `{"error":{"code":"...","message":"..."}}`; upstream service validation failures are
+  `{"code":400,"msg":"...","service_version":"v1"}`. Branch on the HTTP status and `error.code`,
+  never on message text.
+- There is no status page, no changelog, no deprecation policy and no SLA. Assume no notice before a
+  breaking change.
+- There is no official SDK in any language and no MCP server.
+
+## Documentation
+
+- [NASA Open APIs portal](https://api.nasa.gov/): the catalog, per-API docs and key signup.
+- [Authentication and rate limits](https://api.nasa.gov/assets/html/authentication.html)
+- [api.data.gov developer manual](https://api.data.gov/docs/developer-manual/): the gateway that
+  fronts api.nasa.gov — error codes and rate-limit semantics live here.
+- [NASA API catalog JSON](https://api.nasa.gov/assets/json/apis.json): NASA's own machine-readable
+  listing of all sixteen APIs, including two embedded Swagger 2.0 documents.
+- [Artemis program](https://www.nasa.gov/artemis/)
+- [NASA GitHub organization](https://github.com/nasa)
+- [nasa/api-docs](https://github.com/nasa/api-docs): the repository that publishes api.nasa.gov.
+
+## Contracts in this repository
+
+- openapi/artemis-apod-swagger.json — Swagger 2.0, **published by NASA**, extracted verbatim from
+  api.nasa.gov/assets/json/apis.json. Host api.nasa.gov, basePath /planetary.
+- openapi/artemis-techport-swagger.json — Swagger 2.0 v3.4.0, **published by NASA**, TechPort
+  technology-project API. Host techport.nasa.gov, basePath /api.
+- openapi/artemis-apod-api-openapi.yml — OpenAPI 3.2.0, Astronomy Picture of the Day.
+- openapi/artemis-neows-api-openapi.yml — OpenAPI 3.2.0, Near Earth Object Web Service.
+- openapi/artemis-donki-api-openapi.yml — OpenAPI 3.2.0, space weather notifications.
+- openapi/artemis-epic-api-openapi.yml — OpenAPI 3.2.0, Earth Polychromatic Imaging Camera.
+- openapi/artemis-images-api-openapi.yml — OpenAPI 3.2.0, NASA Image and Video Library search.
+- ogc/artemis-moon-trek-lro-wac-wmts-capabilities.xml — OGC WMTS 1.0.0 Capabilities for the LRO WAC
+  global lunar mosaic served by Moon Trek. This is the lunar imagery contract.
+- ogc/artemis-mars-wmts-viking-mdim21-capabilities.xml — OGC WMTS 1.0.0 Capabilities served from
+  api.nasa.gov itself.
+
+## Operations
+
+- `getApod` GET /planetary/apod — Astronomy Picture of the Day; `date`, or `start_date`+`end_date`,
+  or `count` for random. Coverage starts 1995-06-16.
+- `getNeoFeed` GET /neo/rest/v1/feed — near-earth objects by close-approach window; `start_date`,
+  `end_date`, maximum 7 days apart.
+- `lookupNeo` GET /neo/rest/v1/neo/{asteroid_id} — one asteroid by JPL SPK-ID (example: 3542519).
+- `browseNeo` GET /neo/rest/v1/neo/browse — page the whole dataset; `page` and `size`, response
+  carries `page.total_elements` / `page.total_pages`.
+- `getDonkiNotifications` GET /DONKI/notifications — solar flares, geomagnetic storms and radiation
+  events. The mission-relevant feed for crew safety and launch windows.
+- `getEpicNatural` GET /EPIC/api/natural — latest full-disc Earth image metadata.
+- `getEpicNaturalByDate` GET /EPIC/api/natural/date/{date} — same, for a specific date.
+- `searchImages` GET https://images-api.nasa.gov/search?q= — NASA Image and Video Library; `page`
+  and `page_size`, response carries `collection.metadata.total_hits` and prev/next links.
+
+## Runtime semantics
+
+- conventions/artemis-conventions.yml — auth style, three incompatible pagination shapes, request-id
+  tracing, versioning, error envelopes, rate-limit signalling, CORS.
+- errors/artemis-problem-types.yml — the full gateway error-code table plus the upstream envelope.
+- rate-limits/artemis-rate-limits.yml — documented limits and the headers actually observed.
+- authentication/artemis-authentication.yml — the api_key scheme.
+- sandbox/artemis-sandbox.yml — DEMO_KEY, the published shared exploration credential.
+- lifecycle/artemis-lifecycle.yml — what is not published: versioning policy, deprecation policy,
+  status page, SLA, changelog.
+- conformance/artemis-conformance.yml — OGC WMTS 1.0.0 and WMS 1.3.0 declared by the contracts
+  themselves; OAuth, OIDC and RFC 9457 absent.
+- security/artemis-vulnerability-disclosure.yml — NASA's mandated VDP and its Bugcrowd engagement.
+- plans/artemis-plans-pricing.yml — free, two tiers, no paid plan, no billing.
+- mcp/artemis-mcp.yml — candidate tool list only; no server exists.
+
+## Agent skills
+
+- skills/artemis-space-weather-watch.md — poll DONKI for events that gate a lunar mission window.
+- skills/artemis-neo-close-approach-scan.md — scan near-earth objects across a date range.
+- skills/artemis-lunar-imagery-lookup.md — find Artemis and lunar imagery in the NASA library and
+  fetch Moon Trek map tiles through WMTS.
+
+## Also worth knowing
+
+- NASA's catalog lists sixteen APIs; this record holds contracts for five plus TechPort. The others
+  (EONET, Exoplanet Archive, GIBS, InSight, Open Science Data Repository, Satellite Situation Center,
+  SSD/CNEOS, TechTransfer, TLE) are documented on api.nasa.gov but have no machine-readable contract.
+- The TLE API in NASA's catalog points at a third-party host (tle.ivanstanojevic.me), not a NASA one.
+- api.nasa.gov keys work across other US federal agencies on the same api.data.gov gateway.

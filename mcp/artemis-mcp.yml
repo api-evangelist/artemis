@@ -1,0 +1,99 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/artemis-apod-api-openapi.yml, openapi/artemis-neows-api-openapi.yml, openapi/artemis-donki-api-openapi.yml, openapi/artemis-epic-api-openapi.yml, openapi/artemis-images-api-openapi.yml
+status: candidate
+note: >-
+  NASA publishes no MCP server. Searched api.nasa.gov, the nasa GitHub organization, npm and the
+  MCP registries; the only NASA-flavoured servers on npm are third-party (mcp-ts-stdio-nasa 0.2.0,
+  published 2025-08-10 by jezweb; @pipeworx/mcp-nasa-power, @pipeworx/mcp-gistemp,
+  @pipeworx/mcp-meteors by mojibake-ai) and none is affiliated with NASA. The tool list below is a
+  CANDIDATE derived from the OpenAPI operations captured in this repo. Nobody ships it. No endpoint
+  is asserted, because inventing one that happened to answer would read as a verified agent surface.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    auth is recorded as api-key because that is what any server fronting this API would have to
+    carry (an api_key query parameter, DEMO_KEY usable for exploration), not because a server exists.
+third_party_servers:
+- name: mcp-ts-stdio-nasa
+  registry: npm
+  version: 0.2.0
+  published: '2025-08-10'
+  maintainer: jezweb (community)
+  mode: local-stdio
+  official: false
+candidate_tools:
+- tool: nasa_get_apod
+  operationId: getApod
+  method: GET
+  path: /planetary/apod
+  api: Artemis APOD API
+  description: Retrieve the Astronomy Picture of the Day, one day or a date range.
+  consequence: read
+- tool: nasa_get_neo_feed
+  operationId: getNeoFeed
+  method: GET
+  path: /neo/rest/v1/feed
+  api: Artemis NeoWs API
+  description: List near-earth objects by closest-approach date range (maximum 7 days).
+  consequence: read
+- tool: nasa_lookup_neo
+  operationId: lookupNeo
+  method: GET
+  path: /neo/rest/v1/neo/{asteroid_id}
+  api: Artemis NeoWs API
+  description: Look up one asteroid by its JPL small-body SPK-ID.
+  consequence: read
+- tool: nasa_browse_neo
+  operationId: browseNeo
+  method: GET
+  path: /neo/rest/v1/neo/browse
+  api: Artemis NeoWs API
+  description: Page through the whole near-earth-object dataset.
+  consequence: read
+- tool: nasa_get_donki_notifications
+  operationId: getDonkiNotifications
+  method: GET
+  path: /DONKI/notifications
+  api: Artemis DONKI API
+  description: Space weather notifications — solar flares, geomagnetic storms, radiation events.
+  consequence: read
+  relevance: >-
+    The most operationally significant tool on this surface for lunar mission work: DONKI is the
+    space-weather feed that governs crew radiation exposure and mission-planning go/no-go windows.
+- tool: nasa_get_epic_natural
+  operationId: getEpicNatural
+  method: GET
+  path: /EPIC/api/natural
+  api: Artemis EPIC API
+  description: Most recent EPIC natural-colour full-disc Earth image metadata.
+  consequence: read
+- tool: nasa_get_epic_natural_by_date
+  operationId: getEpicNaturalByDate
+  method: GET
+  path: /EPIC/api/natural/date/{date}
+  api: Artemis EPIC API
+  description: EPIC natural-colour image metadata for a given date.
+  consequence: read
+- tool: nasa_search_images
+  operationId: searchImages
+  method: GET
+  path: /search
+  host: https://images-api.nasa.gov
+  api: Artemis Images API
+  description: Search the NASA Image and Video Library.
+  consequence: read
+summary:
+  candidate_tool_count: 8
+  all_read_only: true
+  human_in_the_loop_required: 0
+  note: >-
+    Every operation on this surface is a GET over public data, which makes it an unusually safe API
+    to hand an agent — there is no write to guard, no idempotency to arrange and nothing to reverse.
+    What is missing is not safety but reach: without a server, an agent cannot call any of it
+    without bespoke integration code.
