@@ -98,9 +98,6 @@ apis:
     url: openapi/artemis-apod-api-openapi.yml
   - type: Overlay
     url: overlays/artemis-apod-api-overlay.yaml
-  - type: OpenAPI
-    url: openapi/artemis-apod-swagger.json
-    title: APOD Swagger 2.0 — published by NASA inside api.nasa.gov/assets/json/apis.json
 - aid: artemis:artemis-donki-api
   name: Artemis DONKI API
   description: Space Weather Database Of Notifications, Knowledge, Information
@@ -153,26 +150,58 @@ apis:
     url: openapi/artemis-neows-api-openapi.yml
   - type: Overlay
     url: overlays/artemis-neows-api-overlay.yaml
-- aid: artemis:nasa-techport-api
-  name: NASA TechPort API
-  description: >-
-    TechPort is NASA's public catalog of its technology development projects, including the technology
-    investments made through the Artemis program. The API returns project records — funding, work
-    locations, technology areas, destinations, investigators and closeout documents — in JSON or XML.
-    NASA publishes a Swagger 2.0 contract for it (version 3.4.0) inside its own API catalog document
-    at https://api.nasa.gov/assets/json/apis.json; that document is captured verbatim in this repo.
-  humanURL: https://techport.nasa.gov/
-  baseURL: https://techport.nasa.gov/api
+- aid: artemis:artemis-projects-api
+  name: Artemis Projects API
+  description: The Projects API from Artemis — 1 operation(s) for projects.
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
   tags:
-  - Technology
-  - Research
-  - NASA
   - Projects
-  - Open Data
   properties:
   - type: OpenAPI
-    url: openapi/artemis-techport-swagger.json
-    title: TechPort Swagger 2.0 v3.4.0 — published by NASA
+    url: openapi/artemis-projects-api-openapi.yml
+  - type: Documentation
+    url: https://api.nasa.gov/
+  - type: DeveloperPortal
+    url: https://techport.nasa.gov/
+- aid: artemis:artemis-projects-format-api
+  name: Artemis Projects{.format} API
+  description: The Projects{.format} API from Artemis — 1 operation(s) for projects{.format}.
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - Projects{.format}
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-projects-format-api-openapi.yml
+  - type: Documentation
+    url: https://api.nasa.gov/
+  - type: DeveloperPortal
+    url: https://techport.nasa.gov/
+- aid: artemis:artemis-request-tag-api
+  name: Artemis request tag API
+  description: An example tag
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - request tag
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-request-tag-api-openapi.yml
+  - type: Documentation
+    url: https://api.nasa.gov/
+  - type: DeveloperPortal
+    url: https://techport.nasa.gov/
+- aid: artemis:artemis-techport-api
+  name: Artemis Tech Port API
+  description: The TechPort API from Artemis — 1 operation(s) for techport.
+  humanURL: https://api.nasa.gov/
+  baseURL: https://api.nasa.gov
+  tags:
+  - TechPort
+  properties:
+  - type: OpenAPI
+    url: openapi/artemis-techport-api-openapi.yml
   - type: Documentation
     url: https://api.nasa.gov/
   - type: DeveloperPortal
