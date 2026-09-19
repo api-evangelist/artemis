@@ -156,6 +156,8 @@ apis:
   humanURL: https://api.nasa.gov/
   baseURL: https://api.nasa.gov
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -169,7 +171,8 @@ apis:
   description: The Projects{.format} API from Artemis — 1 operation(s) for projects{.format}.
   humanURL: https://api.nasa.gov/
   baseURL: https://api.nasa.gov
-  tags:
+  tags: []
+  tags_raw:
   - Projects{.format}
   properties:
   - type: OpenAPI
