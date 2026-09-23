@@ -1,29 +1,46 @@
 {
   "provider": "artemis",
   "sources": [
-    "artemis-apod-api-openapi.yml",
-    "artemis-donki-api-openapi.yml",
-    "artemis-epic-api-openapi.yml",
-    "artemis-images-api-openapi.yml",
-    "artemis-neows-api-openapi.yml"
+    "_original/artemis-apod-swagger.json",
+    "_original/artemis-openapi.yml",
+    "_original/artemis-techport-swagger.json"
   ],
   "outputs": [
+    "artemis-request-tag-api-openapi.yml",
     "artemis-apod-api-openapi.yml",
     "artemis-donki-api-openapi.yml",
     "artemis-epic-api-openapi.yml",
     "artemis-images-api-openapi.yml",
-    "artemis-neows-api-openapi.yml"
+    "artemis-neows-api-openapi.yml",
+    "artemis-projects-api-openapi.yml",
+    "artemis-projects-format-api-openapi.yml",
+    "artemis-techport-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "artemis-apod-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "artemis-donki-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "artemis-epic-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "artemis-images-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "artemis-neows-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "artemis-apod-swagger.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "artemis-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "artemis-techport-swagger.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "artemis-techport-swagger.json: tagged paths GET /api -> TechPort",
+    "artemis-techport-swagger.json: tagged paths GET /api/projects{.format} -> Projects{.format}",
+    "artemis-techport-swagger.json: tagged paths GET /api/projects/{id}{.format} -> Projects",
+    "artemis-techport-swagger.json: declared missing tag: Projects",
+    "artemis-techport-swagger.json: declared missing tag: Projects{.format}",
+    "artemis-techport-swagger.json: declared missing tag: TechPort",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "artemis-apod-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-donki-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-epic-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-neows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-projects-format-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-request-tag-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "artemis-techport-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,0 +1,29 @@
+openapi: 3.2.0
+info:
+  version: 3.4.0
+  title: Tech Port API
+  description: TechPort RESTful API
+  contact:
+    name: TechPort Team
+    email: hq-techport@mail.nasa.gov
+    url: https://techport.nasa.gov
+servers:
+- url: http://techport.nasa.gov/api
+- url: https://techport.nasa.gov/api
+tags:
+- name: TechPort
+paths:
+  /api:
+    get:
+      description: Returns the swagger specification for the API.
+      responses:
+        '200':
+          description: Successful response
+        default:
+          description: Object not found.
+      tags:
+      - TechPort
+      summary: Get api
+      x-summary-source: derived
+      operationId: getApi
+      x-operation-id-source: derived

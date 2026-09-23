@@ -5,25 +5,7 @@ info:
   summary: Best-effort OpenAPI for selected NASA Open APIs at api.nasa.gov used in Artemis-related workflows.
   description: 'api.nasa.gov is NASA''s umbrella developer portal exposing a number of
 
-    long-standing public REST APIs. This spec covers the most widely used,
-
-    stable endpoints relevant to Artemis-era lunar and space-weather workflows:
-
-    APOD, the NASA Image and Video Library search, NeoWs (Near Earth Objects),
-
-    DONKI space weather notifications, and EPIC Earth imagery.
-
-
-    Authentication is a single api_key query parameter. The shared
-
-    DEMO_KEY is rate-limited to 30 requests/hour and 50 requests/day per IP;
-
-    sign up at https://api.nasa.gov/ for a higher-volume personal key.
-
-
-    This is a best-effort spec derived from public api.nasa.gov documentation.
-
-    '
+    long-standing public REST APIs.'
   contact:
     name: NASA Open APIs
     url: https://api.nasa.gov/
